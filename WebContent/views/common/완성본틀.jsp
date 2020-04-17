@@ -18,7 +18,7 @@
 <body>
 	<div id="all">
 		<div id="all-wrap">
-			<%@ include file ="/views/common/commonheader.jsp" %>
+			<%@ include file ="/views/common/commonheader.jsp"%>
 			<%@ include file ="/views/common/cm_nav.jsp" %>
 			<div id="asidesection">
 			<%@ include file ="/views/common/cm_aside.jsp" %>
