@@ -1,5 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="trust.model.vo.*,java.util.ArrayList,member.model.vo.Pet"%>
+<%
+	Pet mypet = (Pet)request.getAttribute("mypet");
+	ArrayList<TrustPost> balsin = (ArrayList<TrustPost>)request.getAttribute("balsin");
+	ArrayList<TrustPost> susin = (ArrayList<TrustPost>)request.getAttribute("susin");
+	
+	ArrayList<TrustPost> balsin0 = null;
+	ArrayList<TrustPost> balsin1 = null;
+	ArrayList<TrustPost> balsin2 = null;
+	
+	ArrayList<TrustPost> susin0 = null; 
+	ArrayList<TrustPost> susin1 = null;
+	ArrayList<TrustPost> susin2 = null;
+	
+	for(int i=0; i> balsin.size();i++){
+		if(balsin.get(i).getPosition()==0){
+			balsin0.add(balsin.get(i));
+		}else if(balsin.get(i).getPosition()==1){
+			balsin1.add(balsin.get(i));
+		}else if(balsin.get(i).getPosition()==2){
+			balsin2.add(balsin.get(i));
+		}
+	}
+	for(int i=0; i> susin.size();i++){
+		if(susin.get(i).getPosition()==0){
+			susin0.add(susin.get(i));
+		}else if(balsin.get(i).getPosition()==1){
+			susin1.add(susin.get(i));
+		}else if(balsin.get(i).getPosition()==2){
+			susin2.add(susin.get(i));
+		}
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>

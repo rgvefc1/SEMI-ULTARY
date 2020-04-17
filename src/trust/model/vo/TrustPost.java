@@ -11,6 +11,7 @@ public class TrustPost {
 	private String trustPS; // 보내는 메시지
 	private String sushin; // 위탁수신자 닉네임
 	private String balshin; 
+	private int position;
 	
 	public TrustPost() {}
 
@@ -27,6 +28,22 @@ public class TrustPost {
 		this.trustPS = trustPS;
 		this.sushin = sushin;
 		this.balshin = balshin;
+	}
+	
+
+
+	public TrustPost(int tpostNum, Date trustsDue, Date trusteDue, int trustMeans, String trustPhone, String trustPS,
+			String sushin, String balshin, int position) {
+		super();
+		this.tpostNum = tpostNum;
+		this.trustsDue = trustsDue;
+		this.trusteDue = trusteDue;
+		this.trustMeans = trustMeans;
+		this.trustPhone = trustPhone;
+		this.trustPS = trustPS;
+		this.sushin = sushin;
+		this.balshin = balshin;
+		this.position = position;
 	}
 
 
@@ -68,6 +85,18 @@ public class TrustPost {
 	public void setTrusteDue(Date trusteDue) {
 		this.trusteDue = trusteDue;
 	}
+
+	public int getPosition() {
+		return position;
+	}
+
+
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+
 
 	public int getTrustMeans() {
 		return trustMeans;
@@ -122,8 +151,12 @@ public class TrustPost {
 	public String toString() {
 		return "TrustPost [tpostNum=" + tpostNum + ", trustsDue=" + trustsDue + ", trusteDue=" + trusteDue
 				+ ", trustMeans=" + trustMeans + ", trustPhone=" + trustPhone + ", trustPS=" + trustPS + ", sushin="
-				+ sushin + ", balshin=" + balshin + "]";
+				+ sushin + ", balshin=" + balshin + ", position=" + position + "]";
 	}
+
+
+
+
 
 
 
