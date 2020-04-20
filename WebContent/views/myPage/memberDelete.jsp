@@ -185,7 +185,7 @@
 					location.href="<%= request.getContextPath() %>/views/myPage/memberDelete.jsp";
 				}
 				
-				//console.log("으아아ㅏㅇ");
+			
 			});
 		});
 		
