@@ -582,7 +582,7 @@ public class MatchingDAO {
 	public TrustReview serchtr(Connection conn, int trnum) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		TrustReview tr = new TrustReview();
+		TrustReview tr = null;
 		
 		String query = prop.getProperty("serchtr");
 		
@@ -590,15 +590,26 @@ public class MatchingDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, trnum);
 			
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				tr = new TrustReview(rset.getInt("tr_num"),
+									 rset.getInt("tr_score"),
+									 rset.getString("tr_content"),
+									 rset.getString("memberid"),
+									 rset.getDate("tr_uploaddate"));
+			}
 			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		
-		return null;
+		return tr;
 	}
 
 }
