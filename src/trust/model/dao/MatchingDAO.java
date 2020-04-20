@@ -579,4 +579,26 @@ public class MatchingDAO {
 		return trArr;
 	}
 
+	public TrustReview serchtr(Connection conn, int trnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		TrustReview tr = new TrustReview();
+		
+		String query = prop.getProperty("serchtr");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, trnum);
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
 }

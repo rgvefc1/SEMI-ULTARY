@@ -164,6 +164,14 @@ public class MatchingService {
 		return tr;
 	}
 
+	public TrustReview trusReviewSerch(int trnum) {
+		Connection conn = getConnection();
+		
+		TrustReview tr = new MatchingDAO().serchtr(conn,trnum);
+		
+		return null;
+	}
+
 
 
 
