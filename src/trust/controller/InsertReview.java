@@ -1,7 +1,6 @@
 package trust.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,16 +15,16 @@ import trust.model.service.MatchingService;
 import trust.model.vo.TrustPost;
 
 /**
- * Servlet implementation class TpostSendServlet
+ * Servlet implementation class InsertReview
  */
-@WebServlet("/Tpostsend.tu")
-public class TpostSendServlet extends HttpServlet {
+@WebServlet("/insertReview.tu")
+public class InsertReview extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TpostSendServlet() {
+    public InsertReview() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,35 +33,18 @@ public class TpostSendServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String area1 = request.getParameter("h_area1");
-		String area2 = request.getParameter("h_area2");
-		String area3 = request.getParameter("h_area3");
-		String address = area1+" "+area2+" "+area3;
+		int tpostnum = Integer.parseInt(request.getParameter("tpostnum"));
 		
-		Date startDate = Date.valueOf(request.getParameter("startDate"));
-		Date endDate = Date.valueOf(request.getParameter("endDate"));
-		int trustmeans = Integer.parseInt(request.getParameter("trustmeans"));
-		String tel = request.getParameter("tel");
-		String trustAdd = request.getParameter("trustAdd");
 		
-		HttpSession session = request.getSession();
-		Member sessionMember =(Member)session.getAttribute("loginUser");
-		String loginUser = sessionMember.getMemberId();
-		
-		String memberid = request.getParameter("memberid");
-		
-		TrustPost tp = new TrustPost(startDate,endDate,trustmeans,tel,trustAdd,memberid,loginUser);
-		
-		int result = new MatchingService().sendTustpost(tp);
+		Member m  = new MatchingService().RwriteView(tpostnum);
 		
 		String page = "";
-		
-		if(result >0) {
-			page = "/TpostView.tu";
-			request.setAttribute("tp", tp); 
+		if(m != null) {
+			page="views/trustMatch/matching06.jsp";
+			request.setAttribute("m", m);
 		}else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg","게시판 등록에 실패하였습니다");
+			page="views/common/erroPage.jsp";
+			request.setAttribute("msg", "조회 실패");
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
@@ -78,4 +60,3 @@ public class TpostSendServlet extends HttpServlet {
 	}
 
 }
-

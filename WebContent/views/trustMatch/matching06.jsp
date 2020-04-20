@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member"%>
+<%
+	Member m = (Member)request.getAttribute("m");
+	String tpostnum = request.getParameter("tpostnum");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +17,15 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script.js"></script>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/trust/matching06.css">
+    <style>
+     #star_grade a{
+        text-decoration: none;
+        color: gray;
+    }
+    #star_grade a.on{
+        color: red;
+    }
+</style>
 <body>
 	<div id="all">
 		<div id="all-wrap">
@@ -22,7 +35,7 @@
 			<%@ include file ="/views/common/tr_aside.jsp" %>
 				<section>
 					<div>
-            <form>
+            <form action="<%=request.getContextPath()%>/review.tu">
             <div id="matching">
 				<h1 id="title">의뢰관리</h1>
 				<p id="title-1">위탁 내용 상세보기와 진행사항을 보여드립니다.</p>
@@ -36,8 +49,8 @@
 							<div id="content1" class="content-profile">
 								<img src="/Ultary/views/trustMatch/photo.jpg" id="profile" class="profile-photo">
 								<div class="infoDiv">
-								<span class="name" id="name1">닉네임</span><br><br>
-								<span class="address" id="class1">강동구 암사동 미래주택</span>
+								<span class="name" id="name1"><%=m.getNickname() %></span><br><br>
+								<span class="address" id="class1"><%=m.getAddress() %></span>
 								</div>
 								<div class="infobutton1">관심등록</div><button id="like">좋아욤</button>
 								<div class="infobutton2" ><a href="/Ultary/views/trustMatch/matching03.jsp">상세보기</a></div>
@@ -51,17 +64,44 @@
 									<br>
 									<hr>
 									</div>
-								<textarea id="review">
-								
-								</textarea>
+								<textarea id="review" name="review"></textarea>
 								<div id="point">
 								<h3 style="float:left; margin-left: 61px;">별점</h3>
-								<h3 style="float:right">★★★★★</h3>
-								</div>
-								<div id="button">리뷰등록</div>
+								<p id="star_grade">
+								        <a href="#" id="1star">★</a>
+								        <a href="#" id="2star">★</a>
+								        <a href="#" id="3star">★</a>
+								        <a href="#" id="4star">★</a>
+								        <a href="#" id="5star">★</a>
+								</p>
+								<input type="hidden" id="score" name="score" value="">
+								
+								<button id="button">리뷰등록</button>
 								
 							</div>
-					
+					<script>
+					        $('#star_grade a').click(function(){
+					            $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+					            $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+					            return false;
+					        });
+					        
+					        $('#1star').click(function(){
+					        	$('#score').val(1);
+					        });
+					        $('#2star').click(function(){
+					        	$('#score').val(2);
+					        });
+					        $('#3star').click(function(){
+					        	$('#score').val(3);
+					        });
+					        $('#4star').click(function(){
+					        	$('#score').val(4);
+					        });
+					        $('#5star').click(function(){
+					        	$('#score').val(5);
+					        });
+					</script>
 					
 					
 				</div>

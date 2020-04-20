@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
+import trust.model.vo.TrustReview;
 
 public class MemberService {
 
@@ -60,4 +61,5 @@ public class MemberService {
 		close(conn);
 		return markList;
 	}
+
 }

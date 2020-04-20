@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import member.model.vo.Member;
+import trust.model.vo.TrustReview;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
@@ -207,5 +208,7 @@ public class MemberDAO {
 		
 		return markList;
 	}
+
+
 
 }

@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
 import member.model.vo.Member;
 import member.model.vo.Pet;
 import trust.model.vo.TrustPost;
+import trust.model.vo.TrustReview;
 
 public class MatchingDAO {
 	
@@ -377,6 +378,205 @@ public class MatchingDAO {
 		
 		
 		return result;
+	}
+
+	public ArrayList<TrustPost> MyBalshin(Connection conn, String loginUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<TrustPost> tpArr = new ArrayList<TrustPost>();
+		
+		String query = prop.getProperty("myBalshin");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, loginUser);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				TrustPost tp = new TrustPost(rset.getInt("tpostnum"),
+											 rset.getDate("trustsdue"),
+											 rset.getDate("trustedue"),
+											 rset.getInt("trustmeans"),
+											 rset.getString("trustphone"),
+											 rset.getString("trustps"),
+											 rset.getString("susin"),
+											 rset.getString("balsin"),
+											 rset.getInt("position"));
+				tpArr.add(tp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return tpArr;
+	}
+
+	public ArrayList<TrustPost> MySusin(Connection conn, String loginUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<TrustPost> tpArr = new ArrayList<TrustPost>();
+		
+		String query = prop.getProperty("mysusin");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, loginUser);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				TrustPost tp = new TrustPost(rset.getInt("tpostnum"),
+											 rset.getDate("trustsdue"),
+											 rset.getDate("trustedue"),
+											 rset.getInt("trustmeans"),
+											 rset.getString("trustphone"),
+											 rset.getString("trustps"),
+											 rset.getString("susin"),
+											 rset.getString("balsin"),
+											 rset.getInt("position"));
+				tpArr.add(tp);
+				System.out.println(tpArr.size());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return tpArr;
+	}
+
+	public int changePosition(Connection conn, int position, int tpostNum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changePosition");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, position);
+			pstmt.setInt(2, tpostNum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public TrustPost RwriteView(Connection conn, String user, String loginUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		TrustPost tp = null;
+		
+		String query = prop.getProperty("RwriteView");
+		
+		
+		return null;
+	}
+
+	public TrustPost serchtp(Connection conn, int tpostnum) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		TrustPost tp = null;
+		
+		String query = prop.getProperty("serchtp");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, tpostnum);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				tp = new TrustPost(rset.getInt("tpostnum"),
+						 rset.getDate("trustsdue"),
+						 rset.getDate("trustedue"),
+						 rset.getInt("trustmeans"),
+						 rset.getString("trustphone"),
+						 rset.getString("trustps"),
+						 rset.getString("susin"),
+						 rset.getString("balsin"),
+						 rset.getInt("position"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return tp;
+	}
+	public int review(Connection conn, TrustReview tr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query= prop.getProperty("review");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, tr.getTrScore());
+			pstmt.setString(2, tr.getTrContent());
+			pstmt.setString(3, tr.getMemberId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<TrustReview> trList(Connection conn, String loginUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<TrustReview> trArr = new ArrayList<TrustReview>();
+		
+		String query = prop.getProperty("trList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, loginUser);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				TrustReview tr = new TrustReview(rset.getInt("tr_num"),
+												 rset.getInt("tr_score"),
+												 rset.getString("tr_content"),
+												 rset.getString("memberid"),
+												 rset.getDate("tr_uploaddate"));
+				
+				trArr.add(tr);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return trArr;
 	}
 
 }
