@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member,trust.model.vo.*"%>
 <%
 	Member m = (Member)request.getAttribute("m");
-	String tpostnum = request.getParameter("tpostnum");
+	TrustReview tp = (TrustReview)request.getAttribute("tp");
 %>
 <!DOCTYPE html>
 <html>
@@ -35,10 +35,10 @@
 			<%@ include file ="/views/common/tr_aside.jsp" %>
 				<section>
 					<div>
-            <form action="<%=request.getContextPath()%>/review.tu">
+            <form action="<%=request.getContextPath()%>/updatereview.tu">
             <div id="matching">
-				<h1 id="title">의뢰관리</h1>
-				<p id="title-1">위탁 내용 상세보기와 진행사항을 보여드립니다.</p>
+				<h1 id="title">리뷰수정</h1>
+				<p id="title-1"></p>
 					<hr style="margin-left:10px;">
 				<br clear="all">
 				</div>
@@ -60,11 +60,11 @@
 							<div id="review-box">
 								<div id="review-box-top">
 									<h3 id="review-title">리뷰작성</h3>
-									<label id="date">2020-03-20</label>
+									<label id="date"><%=tp.getTrUploadDate() %></label>
 									<br>
 									<hr>
 									</div>
-								<textarea id="review" name="review"></textarea>
+								<textarea id="review" name="review"><%=tp.getTrContent() %></textarea>
 								<div id="point">
 								<h3 style="float:left; margin-left: 61px;">별점</h3>
 								<p id="star_grade">

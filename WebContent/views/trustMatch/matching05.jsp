@@ -5,15 +5,15 @@
 	ArrayList<TrustPost> balsin = (ArrayList<TrustPost>)request.getAttribute("balsin");
 	ArrayList<TrustPost> susin = (ArrayList<TrustPost>)request.getAttribute("susin");
 	
-	ArrayList<TrustPost> balsin0 = null;
-	ArrayList<TrustPost> balsin1 = null;
-	ArrayList<TrustPost> balsin2 = null;
+	ArrayList<TrustPost> balsin0 = new ArrayList<TrustPost>();
+	ArrayList<TrustPost> balsin1 = new ArrayList<TrustPost>();
+	ArrayList<TrustPost> balsin2 = new ArrayList<TrustPost>();
 	
-	ArrayList<TrustPost> susin0 = null; 
-	ArrayList<TrustPost> susin1 = null;
-	ArrayList<TrustPost> susin2 = null;
+	ArrayList<TrustPost> susin0 = new ArrayList<TrustPost>(); 
+	ArrayList<TrustPost> susin1 = new ArrayList<TrustPost>();
+	ArrayList<TrustPost> susin2 = new ArrayList<TrustPost>();
 	
-	for(int i=0; i> balsin.size();i++){
+	for(int i=0; i< balsin.size();i++){
 		if(balsin.get(i).getPosition()==0){
 			balsin0.add(balsin.get(i));
 		}else if(balsin.get(i).getPosition()==1){
@@ -22,15 +22,15 @@
 			balsin2.add(balsin.get(i));
 		}
 	}
-	for(int i=0; i> susin.size();i++){
+	for(int i=0; i< susin.size();i++){
 		if(susin.get(i).getPosition()==0){
 			susin0.add(susin.get(i));
-		}else if(balsin.get(i).getPosition()==1){
+		}else if(susin.get(i).getPosition()==1){
 			susin1.add(susin.get(i));
-		}else if(balsin.get(i).getPosition()==2){
+		}else if(susin.get(i).getPosition()==2){
 			susin2.add(susin.get(i));
-		}
-	}
+		} 
+	 } 
 %>
 <!DOCTYPE html>
 <html>
@@ -95,70 +95,164 @@
 				<div id="page4" >
 					<div id="page4-1">의뢰관리</div>
 					<div id="page4-1-1" class="subtitle" onclick="nosub();">미승인</div>
-					<div id="page4-1-2" class="subtitle" onclick="sub();">수락	</div>
-					<div id="page4-1-3" class="subtitle">거절	</div>
+					<div id="page4-1-2" class="subtitle" onclick="sub();">수락</div>
+					<div id="page4-1-3" class="subtitle" onclick="no();">거절	</div>
 					
-					<div class="subcircle" id="subcircle1"><p id="no">1건</p></div>
-					<div class="subcircle" id="subcircle2"><p id="accept">1건</p></div>
-					<div class="subcircle" id="subcircle3"><p id="nono">1건</p></div>
+					<div class="subcircle" id="subcircle1"><p id="no"><%=balsin0.size()+susin0.size() %>건</p></div>
+					<div class="subcircle" id="subcircle2"><p id="accept"><%=balsin1.size()+susin1.size() %>건</p></div>
+					<div class="subcircle" id="subcircle3"><p id="nono"><%=balsin2.size()+susin2.size() %>건</div>
 				</div>
 				
 				<div id="no-popup1" style="display:none">
 					<div id="no-popup-1" >
 					<div id="myreq">
-							<input type="radio" name="req" id="popup01"><label>내가 보낸 의뢰</label>
+							<div name ="req" id ="popup01" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
+			
 						</div>
 						<div id="myresp">
-							<input type="radio" name="req" id="popup02"><label>내가 받은 의뢰</label>
+							<div name ="req" id ="popup02" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
 						</div>
-					
+					<div id = "mybalsin0"  style="display:none;">
+				<% if( balsin0.size()==0){ %>
+					내가 보낸의뢰가 없습니다.
+				<%} else{%>
+					<%for( int i=0;i<balsin0.size();i++){ %>
 					<div id="reqcontent1">
 						<div id ="req1">
 							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
-							<h5 style="display:inline">닉네임</h5>
+							<h5 style="display:inline"><%= balsin0.get(i).getSushin() %></h5>
 						</div>
 						<div id ="req2">
-							의뢰일 | 22.12. 6 15:34
+							의뢰일 | <%=balsin0.get(i).getTrustsDue() %> ~ <%=balsin0.get(i).getTrusteDue()%>
 						</div>
 						<div id ="req3">
-							<p style="display:inline;">우리의 귀는 생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다
-								뼈 끝에 스며들어 가는 열락의 소리다이것은 피어나기 전인 유소년에게서 구하지 못할 바이며
-								 시들어 가는 노년에게서 구하지 못할 바이며 오직 우리 청춘에서만 구할
-							</p>
+							<p style="display:inline;"><%=balsin0.get(i).getTrustPS() %>	</p>
 						</div>
-						<button id="btn1" class="btn">수락</button>
-					<button id="btn2" class="btn">거절</button>
+						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=balsin0.get(i).getTpostNum()%>'">수락</button>
+					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=balsin0.get(i).getTpostNum()%>'">거절</button>
 					</div>
+					<%} }%>
 					</div>
-					</div>
-				<div id="no-popup2" style="display:none">
-				<div id="no-popup-1">
-					<div id="myreq">
-							<input type="radio" name="req" id="popup01"><label>내가 보낸 의뢰</label>
-						</div>
-						<div id="myresp">
-							<input type="radio" name="req" id="popup02"><label>내가 받은 의뢰</label>
-						</div>
-					</div>
-					<div id="respcontent2">
+					
+					<div id = "mysusin0"  style="display:none;">
+				<% if(susin0.size()==0) {%>
+					내가 받은 의뢰가 없습니다.
+				<%} else{ %>
+					<% for(int i=0;i<susin0.size();i++){ %>
+					<div id="reqcontent1">
 						<div id ="req1">
 							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
-							<h5 style="display:inline">닉네임</h5>
+							<h5 style="display:inline"><%=susin0.get(i).getBalshin() %></h5>
 						</div>
 						<div id ="req2">
-							의뢰일 | 22.12. 6 15:34
+							의뢰기간 | <%=susin0.get(i).getTrustsDue() %> ~ <%=susin0.get(i).getTrusteDue() %>
 						</div>
 						<div id ="req3">
-							<p style="display:inline;">우리의 귀는 생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다
-								뼈 끝에 스며들어 가는 열락의 소리다이것은 피어나기 전인 유소년에게서 구하지 못할 바이며
-								 시들어 가는 노년에게서 구하지 못할 바이며 오직 우리 청춘에서만 구할
-							</p>
+							<p style="display:inline;"><%=susin0.get(i).getTrustPS() %>	</p>
 						</div>
-						<button id="btn1" class="btn"><a href="/Ultary/views/trustMatch/matching06.jsp">리뷰작성</a></button>
-						
+						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=susin0.get(i).getTpostNum()%>'">수락</button>
+					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin0.get(i).getTpostNum()%>'">거절</button>
 					</div>
-				</div>
-				</div>
+					<%} }%>
+					</div>
+					</div>
+					</div>
+					
+					
+				<div id="no-popup2" style="display:none">
+					<div id="no-popup-1" >
+					<div id="myreq">
+						<div name ="req" id ="popup03" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
+					</div>
+					<div id="myresp">
+						<div name ="req" id ="popup04" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
+					</div>
+					<div id = "mybalsin1" style="display:none" >
+					<%for( int i=0;i<balsin1.size();i++){ %>
+					<div id="reqcontent1">
+						<div id ="req1">
+							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+							<h5 style="display:inline"><%= balsin1.get(i).getSushin() %></h5>
+						</div>
+						<div id ="req2">
+							의뢰일 | <%=balsin1.get(i).getTrustsDue() %> ~ <%=balsin1.get(i).getTrusteDue()%>
+						</div>
+						<div id ="req3">
+							<p style="display:inline;"><%=balsin1.get(i).getTrustPS() %>	</p>
+						</div>
+						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>'">리뷰작성</button>
+					</div>
+					<%} %>
+					</div>
+					<div id = "mysusin1" style="display:none" >
+					<% for(int i=0;i<susin1.size();i++){ %>
+					<div id="reqcontent1">
+						<div id ="req1">
+							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+							<h5 style="display:inline"><%=susin1.get(i).getBalshin() %></h5>
+						</div>
+						<div id ="req2">
+							의뢰기간 | <%=susin1.get(i).getTrustsDue() %> ~ <%=susin1.get(i).getTrusteDue() %>
+						</div>
+						<div id ="req3">
+							<p style="display:inline;"><%=susin1.get(i).getTrustPS() %>	</p>
+						</div>
+						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%=susin1.get(i).getBalshin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>'">수락</button>
+						</div>
+					<%} %>
+						</div>
+						</div>
+					</div>
+					
+					
+					<div id="no-popup3" style="display:none">
+					<div id="no-popup-1" >
+					<div id="myreq">
+							<div name ="req" id ="popup05" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
+			
+						</div>
+						<div id="myresp">
+							<div name ="req" id ="popup06" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
+						</div>
+					<div id = "mybalsin2"  style="display:none;">
+					<%for( int i=0;i<balsin2.size();i++){ %>
+					<div id="reqcontent1">
+						<div id ="req1">
+							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+							<h5 style="display:inline"><%= balsin2.get(i).getSushin() %></h5>
+						</div>
+						<div id ="req2">
+							의뢰일 | <%=balsin2.get(i).getTrustsDue() %> ~ <%=balsin2.get(i).getTrusteDue()%>
+						</div>
+						<div id ="req3">
+							<p style="display:inline;"><%=balsin2.get(i).getTrustPS() %>	</p>
+						</div>
+						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=balsin2.get(i).getTpostNum()%>'">수락</button>
+					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=balsin2.get(i).getTpostNum()%>'">거절</button>
+					</div>
+					<%} %>
+					</div>
+					<div id = "mysusin2"  style="display:none;">
+					<% for(int i=0;i<susin2.size();i++){ %>
+					<div id="reqcontent1">
+						<div id ="req1">
+							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+							<h5 style="display:inline"><%=susin2.get(i).getBalshin() %></h5>
+						</div>
+						<div id ="req2">
+							의뢰기간 | <%=susin2.get(i).getTrustsDue() %> ~ <%=susin2.get(i).getTrusteDue() %>
+						</div>
+						<div id ="req3">
+							<p style="display:inline;"><%=susin2.get(i).getTrustPS() %>	</p>
+						</div>
+						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=susin2.get(i).getTpostNum()%>'">수락</button>
+					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin2.get(i).getTpostNum()%>'">거절</button>
+					</div>
+					<%} %>
+					</div>
+					</div>
+					</div>
+				
 <script>
 
 	$(function(){
@@ -167,11 +261,44 @@
 	function nosub(){
 		$('#no-popup1').show();
 		$('#no-popup2').hide();
+		$('#no-popup3').hide();
 	}
 	function sub(){
 		$('#no-popup2').show();
 		$('#no-popup1').hide();
+		$('#no-popup3').hide();
 	}
+	function no(){
+		$('#no-popup3').show();
+		$('#no-popup1').hide();
+		$('#no-popup2').hide();
+	}
+	$('#popup01').click(function(){
+		$('#mybalsin0').show();
+		$('#mysusin0').hide();
+	});
+	$('#popup02').click(function(){
+		$('#mysusin0').show();
+		$('#mybalsin0').hide();
+
+	});
+	$('#popup04').click(function(){
+		$('#mysusin1').show();
+		$('#mybalsin1').hide();
+
+	});
+	$('#popup03').click(function(){
+		$('#mysusin1').hide();
+		$('#mybalsin1').show();
+	});
+	$('#popup06').click(function(){
+		$('#mysusin2').show();
+		$('#mybalsin2').hide();
+	});
+	$('#popup05').click(function(){
+		$('#mysusin2').hide();
+		$('#mybalsin2').show();
+	});
 </script>
 
 			</div>

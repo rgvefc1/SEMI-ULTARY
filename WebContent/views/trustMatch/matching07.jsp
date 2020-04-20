@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member,java.util.*,trust.model.vo.*"%>
+<%
+	ArrayList<TrustReview> tr = (ArrayList<TrustReview>)request.getAttribute("tr");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,57 +31,34 @@
 		</div>
 		<hr>
 		<div id="page-in" style="padding-top: 10px;padding-bottom:10px;">
-			<div class="content" id="content1">
-				<div class="content-1">
-					<img src="/Ultary/views/trustMatch/photo.jpg" class="ps">
-					<h5 class="nick" id="nick1">닉네임</h5>
+			<%if(tr.isEmpty()) {%>
+				내가 남긴 후기가 없습니다.
+			<%} else{ %>
+			  <%for(int i=0; i<tr.size();i++){ %>
+				<div class="content" id="content1">
+					<div class="content-1">
+						<img src="/Ultary/views/trustMatch/photo.jpg" class="ps">
+						<h5 class="nick" id="nick1"><%=tr.get(i).getMemberId() %></h5>
+						<input type="hidden" name="trnum" id="trnum" value="<%=tr.get(i).getTrNum() %>">
+					</div>
+					<div class="content-2">
+						<h3 style="float:left">
+						<%for(int j=0;j <tr.get(i).getTrScore(); j++){ %>
+							★
+						<%} %>
+						</h3>
+						<h4 style="float:right"><%=tr.get(i).getTrUploadDate() %></h4>
+					</div>
+					<div class="content-3">
+						<div class="review"><%=tr.get(i).getTrContent() %></div>
+					</div>
+					<div class="content-4">
+						<input type="button" class="btn" id="sBtn" name="sBtn" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=tr.get(i).getTrNum()%>'">
+						<input type="reset" class="btn" id="cBtn" name="cBtn" value="삭제하기">
+					</div>
 				</div>
-				<div class="content-2">
-					<h3 style="float:left">★★★★★</h3>
-					<h4 style="float:right">2020-03-21</h4>
-				</div>
-				<div class="content-3">
-					<div class="review">리뷰가 나오는곳</div>
-				</div>
-				<div class="content-4">
-					<input type="submit" class="btn" id="sBtn" name="sBtn" value="수정하기">
-					<input type="reset" class="btn" id="cBtn" name="cBtn" value="삭제하기">
-				</div>
-			</div>
-			<div class="content" id="content2">
-				<div class="content-1">
-					<img src="/Ultary/views/trustMatch/photo.jpg" class="ps">
-					<h5 class="nick" id="nick1">닉네임</h5>
-				</div>
-				<div class="content-2">
-					<h3 style="float:left">★★★★★</h3>
-					<h4 style="float:right">2020-03-21</h4>
-				</div>
-				<div class="content-3">
-					<div class="review">리뷰가 나오는곳</div>
-				</div>
-				<div class="content-4">
-					<input type="submit" class="btn" id="sBtn" name="sBtn" value="수정하기">
-					<input type="reset" class="btn" id="cBtn" name="cBtn" value="삭제하기">
-				</div>
-			</div>
-			<div class="content" id="content3">
-				<div class="content-1">
-					<img src="/Ultary/views/trustMatch/photo.jpg" class="ps">
-					<h5 class="nick" id="nick1">닉네임</h5>
-				</div>
-				<div class="content-2">
-					<h3 style="float:left">★★★★★</h3>
-					<h4 style="float:right">2020-03-21</h4>
-				</div>
-				<div class="content-3">
-					<div class="review">리뷰가 나오는곳</div>
-				</div>
-				<div class="content-4">
-					<input type="submit" class="btn" id="sBtn" name="sBtn" value="수정하기">
-					<input type="reset" class="btn" id="cBtn" name="cBtn" value="삭제하기">
-				</div>
-			</div>
+			 <%} %>
+			<%} %>
 		</div>
 				
 				

@@ -1,7 +1,7 @@
 package trust.controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,20 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
+import member.model.vo.Pet;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustPost;
 
 /**
- * Servlet implementation class TpostSendServlet
+ * Servlet implementation class TpostView
  */
-@WebServlet("/Tpostsend.tu")
-public class TpostSendServlet extends HttpServlet {
+@WebServlet("/TpostView.tu")
+public class TpostView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TpostSendServlet() {
+    public TpostView() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,39 +35,22 @@ public class TpostSendServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String area1 = request.getParameter("h_area1");
-		String area2 = request.getParameter("h_area2");
-		String area3 = request.getParameter("h_area3");
-		String address = area1+" "+area2+" "+area3;
-		
-		Date startDate = Date.valueOf(request.getParameter("startDate"));
-		Date endDate = Date.valueOf(request.getParameter("endDate"));
-		int trustmeans = Integer.parseInt(request.getParameter("trustmeans"));
-		String tel = request.getParameter("tel");
-		String trustAdd = request.getParameter("trustAdd");
-		
+		TrustPost tp = (TrustPost)request.getAttribute("tp");
 		HttpSession session = request.getSession();
 		Member sessionMember =(Member)session.getAttribute("loginUser");
-		String loginUser = sessionMember.getMemberId();
+		String loginUser = sessionMember.getMemberId(); 
 		
-		String memberid = request.getParameter("memberid");
+		Pet mypet = new MatchingService().DetailPet(loginUser);
+		ArrayList<TrustPost> balsin = new MatchingService().TpostBalshin(loginUser);
+		ArrayList<TrustPost> susin = new MatchingService().TpostSushin(loginUser);
 		
-		TrustPost tp = new TrustPost(startDate,endDate,trustmeans,tel,trustAdd,memberid,loginUser);
 		
-		int result = new MatchingService().sendTustpost(tp);
-		
-		String page = "";
-		
-		if(result >0) {
-			page = "/TpostView.tu";
-			request.setAttribute("tp", tp); 
-		}else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg","게시판 등록에 실패하였습니다");
-		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
+		RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching05.jsp");
+		request.setAttribute("mypet",mypet);
+		request.setAttribute("balsin", balsin);
+		request.setAttribute("susin", susin);
 		view.forward(request, response);
-		
+	
 	}
 
 	/**
@@ -76,6 +60,4 @@ public class TpostSendServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
-
