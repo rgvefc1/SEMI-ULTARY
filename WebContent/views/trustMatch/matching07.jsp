@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="member.model.vo.Member,java.util.*,trust.model.vo.*"%>
 <%
 	ArrayList<TrustReview> tr = (ArrayList<TrustReview>)request.getAttribute("tr");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -38,6 +39,7 @@
 					<div class="content-1">
 						<img src="/Ultary/views/trustMatch/photo.jpg" class="ps">
 						<h5 class="nick" id="nick1"><%=tr.get(i).getMemberId() %></h5>
+						<input type="hidden" name="trnum" id="trnum" value="<%=tr.get(i).getTrNum() %>">
 					</div>
 					<div class="content-2">
 						<h3 style="float:left">
@@ -51,7 +53,7 @@
 						<div class="review"><%=tr.get(i).getTrContent() %></div>
 					</div>
 					<div class="content-4">
-						<input type="button" class="btn" id="sBtn" name="sBtn" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/trustcol.tu?<%=tr.get(i).getTrNum()%>'">
+						<input type="button" class="btn" id="sBtn" name="sBtn" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=tr.get(i).getTrNum()%>'">
 						<input type="reset" class="btn" id="cBtn" name="cBtn" value="삭제하기">
 					</div>
 				</div>
