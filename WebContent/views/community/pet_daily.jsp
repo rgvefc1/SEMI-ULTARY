@@ -51,7 +51,7 @@
 		        			<option value="onlytitle">제목만</option>
 		        			<option value="writer">작성자</option>
 		        		</select>
-        				<input type="text" size=20 placeholder="검색할 내용을 입력하세요" class="textbox">
+        				<input type="text" size=20 placeholder="검색할 내용을 입력하세요." class="textbox">
         				&nbsp;
         				<input type="submit" value="검색" class="find">
         			</div>
