@@ -40,7 +40,7 @@ public class Trustcol extends HttpServlet {
 		String page ="";
 		if(m != null) {
 			page = "views/trustMatch/matchingcol.jsp";
-			request.setAttribute("tp", tr);
+			request.setAttribute("tp",tr);
 			request.setAttribute("m", m);
 		}else {
 			page="views/common/errorPage.jsp";
