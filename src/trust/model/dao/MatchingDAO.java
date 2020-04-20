@@ -582,7 +582,7 @@ public class MatchingDAO {
 	public TrustReview serchtr(Connection conn, int trnum) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		TrustReview tr = new TrustReview();
+		TrustReview tr = null;
 		
 		String query = prop.getProperty("serchtr");
 		
@@ -590,6 +590,10 @@ public class MatchingDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, trnum);
 			
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				
+			}
 			
 			
 		} catch (SQLException e) {
