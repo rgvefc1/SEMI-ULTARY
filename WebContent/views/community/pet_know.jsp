@@ -58,7 +58,7 @@
      				</div>
 					<div class="boardbody">
      				<% if(klist.isEmpty()) { %>
-     					<div>존재하는 글 없음</div>
+     					<div>존재하는 글 없음ㅁ</div>
      				<% } else { 
      					for(Post n : klist){
      				%>	
