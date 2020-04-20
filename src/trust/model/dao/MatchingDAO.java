@@ -592,17 +592,24 @@ public class MatchingDAO {
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
-				
+				tr = new TrustReview(rset.getInt("tr_num"),
+									 rset.getInt("tr_score"),
+									 rset.getString("tr_content"),
+									 rset.getString("memberid"),
+									 rset.getDate("tr_uploaddate"));
 			}
 			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		
-		return null;
+		return tr;
 	}
 
 }

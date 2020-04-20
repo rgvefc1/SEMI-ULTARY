@@ -169,7 +169,12 @@ public class MatchingService {
 		
 		TrustReview tr = new MatchingDAO().serchtr(conn,trnum);
 		
-		return null;
+		if(tr != null) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return tr;
 	}
 
 
