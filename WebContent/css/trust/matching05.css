@@ -25,9 +25,9 @@
 	#subcircle1{}
 	#subcircle2{margin-left: 148px;}
 	#subcircle3{margin-left: 145px;}
-	#no{font-size: 45px; display: inline; color: red;}
-	#accept{font-size: 45px; display: inline;}
-	#nono{font-size: 45px; display: inline;}
+	#no{font-size: 30px; display: inline; color: red;}
+	#accept{font-size: 30px; display: inline;}
+	#nono{font-size: 30px; display: inline;}
 	
 	#no-popup1{width: 89%; height: 199px; background: aquamarine;margin-left: 56px;}
 	#no-popup-1{width:100%;height:34px;}

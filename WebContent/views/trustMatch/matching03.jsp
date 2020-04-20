@@ -192,7 +192,7 @@
 						<div id="page5-title">
 						<%=m.getNickname() %> 님에게 보내는 메세지
 						</div>
-							<textarea id="page5-textarea" cols="30" rows="30" name="truestAdd">dkdkdkdk</textarea>
+							<textarea id="page5-textarea" cols="30" rows="30" name="truestAdd"></textarea>
 
 					</div>
 						<input type="submit" id="sub" value="요청하기">
